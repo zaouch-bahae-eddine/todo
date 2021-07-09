@@ -6,6 +6,12 @@ const TypeDefs = gql`
         getTodoById(id: ID!): Todo
     }
 
+    type Mutation {
+        addTodo(todo: TodoInput!) : Todo
+        setTodoById(id: ID!, todo: TodoInput!): Todo
+        deleteTodoById(id: ID!): Todo
+    }
+
     type Todo {
         id: ID!
         title: String
@@ -15,6 +21,13 @@ const TypeDefs = gql`
         dateEnd: DateTime
     }
 
+    input TodoInput {
+        title: String
+        detail: String
+        categorie:String
+        dateStart: DateTime
+        dateEnd: DateTime
+    }
     scalar DateTime
 `;
 module.exports = TypeDefs;

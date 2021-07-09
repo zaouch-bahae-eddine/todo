@@ -1,11 +1,22 @@
-const { getAllTodo, getTodoById } = require('../db/physique/todo/TodoQueries');
+const { getAllTodo, getTodoById, setTodoById, addTodo, deleteTodoById } = require('../db/physique/todo/TodoQueries');
 const Resolver = {
     Query: {
-        getTodoList: async () =>{
+        getTodoList: () =>{
             return getAllTodo();
         },
-        getTodoById: async (obj, args, context, info) => {
+        getTodoById: (obj, args, context, info) => {
             return getTodoById(args.id);
+        }
+    },
+    Mutation: {
+        addTodo: (obj, args, context, info) => {
+            return addTodo(args.todo);
+        },
+        setTodoById: (obj, args, context, info) => {
+            return setTodoById(args.id, args.todo);
+        },
+        deleteTodoById: (obj, args, context, info) => {
+            return deleteTodoById(args.id);
         }
     }
 }
