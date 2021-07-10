@@ -1,5 +1,5 @@
 import TodoList from "./Page/TodoList";
-import GlobalStyle from "./Page/GlobalStyle";
+import GlobalStyle from "./Page/GlobalStyle/GlobalStyle";
 function App() {
   return (
     <div className="App">

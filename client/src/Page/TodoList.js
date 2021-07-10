@@ -1,12 +1,15 @@
-import React, {Fragment} from 'react'
-import Task from '../Component/TaskItem/Task'
+import React, { Fragment } from 'react'
+import Task from '../Component/Task/TaskItem/Task'
+import TaskContainer from '../Component/Task/TaskContainer/TaskContainer';
 function TodoList() {
     return (
         <Fragment>
-            <Task/>
-            <Task/>
-            <Task/>
-            <Task/>
+            <TaskContainer>
+                <Task />
+                <Task />
+                <Task />
+                <Task />
+            </TaskContainer>
         </Fragment>
     )
 }
