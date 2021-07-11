@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { AiOutlineSetting, AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import { TasksGroupeSettingStyle } from '../TaskShared';
-import HiddenCover from '../HiddenCover/HiddenCover';
+import HiddenCover from '../../HiddenCover/HiddenCover';
 const TaskItem = styled.div`
     width: 280px;
     border-radius: 10px;
@@ -60,7 +60,8 @@ const DetailStyle = styled.div`
         margin-bottom: 0;
     }
 `;
-function Task() {
+
+function Task(props) {
     const [displaySetting, setDisplaySetting] = useState(false);
     const toggelSetting = () => {
         setDisplaySetting((prev) => !prev);
@@ -69,22 +70,22 @@ function Task() {
         <TaskItem>
             <div>
                 <TaskHeader>
-                    <CategorieStyle>Categorie</CategorieStyle>
+                    <CategorieStyle>{props.data.categorie}</CategorieStyle>
                     <div onClick={() => toggelSetting()}>
                         <AiOutlineSetting />
                         <TasksGroupeSettingStyle color="#32d0ff" size="110px" visible={displaySetting}>
-                            <li><AiOutlineEdit /> <span>Edit</span></li>
+                            <li onClick={() => props.toggelSetTaskModal(props.data)}><AiOutlineEdit /> <span>Edit</span></li>
                             <li><AiOutlineDelete /> <span>Delete</span></li>
                         </TasksGroupeSettingStyle>
                     </div>
                 </TaskHeader>
-                <h2>Title Task</h2>
-                <span>2020-01-21 23:59:59</span>
+                <h2>{props.data.title}</h2>
+                <span>{props.data.dateEnd}</span>
                 <DetailStyle>
-                    <p> Details Details Details Details Details Details Details Details</p>
+                    <p> {props.data.detail}</p>
                 </DetailStyle>
             </div>
-            <HiddenCover visible={displaySetting} toggelSetting={toggelSetting}/>
+            <HiddenCover visible={displaySetting} clickAction={toggelSetting}/>
         </TaskItem>
     )
 }

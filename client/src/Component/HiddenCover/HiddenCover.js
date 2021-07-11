@@ -8,11 +8,11 @@ const HiddenCoverStyle = styled.div`
     width: 100%;
     height: 100%;
     z-index: 8;
-    background-color: #ff000000;
+    background-color: ${props => props.color? props.color : "#fff0"};
     display: ${props=> props.visible? "block" : "none"};
 `;
 function HiddenCover(props) {
-    return (<HiddenCoverStyle visible={props.visible} onClick={()=>props.toggelSetting()}/>)
+    return (<HiddenCoverStyle visible={props.visible} onClick={()=>props.clickAction()} color={props.color} />)
 }
 
 export default HiddenCover

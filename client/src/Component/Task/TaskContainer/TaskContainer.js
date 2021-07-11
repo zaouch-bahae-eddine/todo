@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components';
-import Task from '../TaskItem/Task';
 import { AiOutlineSetting, AiOutlineEdit, AiOutlineDelete, AiOutlineAppstoreAdd } from 'react-icons/ai';
-import {TasksGroupeSettingStyle} from '../TaskShared';
-import HiddenCover from '../HiddenCover/HiddenCover';
+import { TasksGroupeSettingStyle } from '../TaskShared';
+import HiddenCover from '../../HiddenCover/HiddenCover';
+
 const TaskContainerStyle = styled.div`
     display: flex;
     flex-direction: column;
@@ -51,6 +51,7 @@ const AddTaskStyle = styled.div`
         cursor: pointer;
     }
 `;
+
 function TaskContainer(props) {
     const [displaySetting, setDisplaySetting] = useState(false);
     const toggelSetting = () => {
@@ -70,8 +71,8 @@ function TaskContainer(props) {
                 </div>
             </TasksGroupeHeaderStyle>
             {props.children}
-            <AddTaskStyle> <AiOutlineAppstoreAdd /> <span>Add a task</span></AddTaskStyle>
-            <HiddenCover visible={displaySetting} toggelSetting={toggelSetting}/>
+            <AddTaskStyle onClick={() => props.toggelAddTAskModal()}> <AiOutlineAppstoreAdd /> <span>Add a task</span></AddTaskStyle>
+            <HiddenCover visible={displaySetting} clickAction={toggelSetting} />
         </TaskContainerStyle>
     )
 }
