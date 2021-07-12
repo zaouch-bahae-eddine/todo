@@ -10,13 +10,15 @@ function TodoList() {
     const [displayAddTaskModal, setDisplayAddTaskModal] = useState(false);
     const [displaySetTaskModal, setDisplaySetTaskModal] = useState(false);
     const [formInput, setFormInput] = useState({
+        id: "",
         title: "",
         detail: "",
         categorie: "",
         dateStart: "",
         dateEnd: ""
     });
-    const { loading, error, data } = useQuery(GET_TASK);
+    const { loading, error, data, refetch } = useQuery(GET_TASK);
+
     if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;
 
@@ -26,8 +28,9 @@ function TodoList() {
     }
     const toggelSetTaskModal = (data) => {
         setDisplaySetTaskModal(prev => !prev);
-        if(data !== undefined){
+        if (data !== undefined) {
             setFormInput({
+                id: data.id,
                 title: data.title,
                 detail: data.detail,
                 categorie: data.categorie,
@@ -42,6 +45,7 @@ function TodoList() {
 
     const resetForm = () => {
         setFormInput({
+            id: "",
             title: "",
             detail: "",
             categorie: "",
@@ -61,19 +65,30 @@ function TodoList() {
         <Fragment>
             <Modal title="Add task" visible={displayAddTaskModal} toggelAddTAskModal={toggelAddTaskModal}>
                 <AddTaskForm
+                    type="add"
                     formInput={formInput}
                     handleInputChange={handleInputChange}
-                    resetForm={resetForm} />
+                    resetForm={resetForm}
+                    refetch={refetch}
+                />
             </Modal>
             <Modal title="Edit task" visible={displaySetTaskModal} toggelAddTAskModal={toggelSetTaskModal}>
                 <AddTaskForm
+                    type="set"
                     formInput={formInput}
                     handleInputChange={handleInputChange}
-                    resetForm={resetForm} />
+                    resetForm={resetForm}
+                    refetch={refetch}
+                    setDisplaySetTaskModal={setDisplaySetTaskModal}
+                    />
             </Modal>
             <TaskContainer toggelAddTAskModal={toggelAddTaskModal}>
                 {
-                    data.tasks.map(taskData => <Task data={taskData} toggelSetTaskModal={toggelSetTaskModal}/>)
+                    data.tasks.map(taskData => <Task 
+                        key={taskData.id} 
+                        data={taskData}
+                         toggelSetTaskModal={toggelSetTaskModal}
+                         refetch={refetch} />)
                 }
             </TaskContainer>
         </Fragment>

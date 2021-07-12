@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { AiOutlineSetting, AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import { TasksGroupeSettingStyle } from '../TaskShared';
 import HiddenCover from '../../HiddenCover/HiddenCover';
+import { useMutation } from '@apollo/client';
+import DELETE_TASK from '../../../Query/DeleteTask';
+
 const TaskItem = styled.div`
     width: 280px;
     border-radius: 10px;
@@ -66,6 +69,13 @@ function Task(props) {
     const toggelSetting = () => {
         setDisplaySetting((prev) => !prev);
     }
+    const [deleteTaskMutation, {data}] = useMutation(DELETE_TASK,{
+        update: () => props.refetch(),
+        onCompleted: (data) => {console.log(data)}
+    })
+    const deleteTask = (id) => {
+        deleteTaskMutation({variables: {id: id} });
+    }
     return (
         <TaskItem>
             <div>
@@ -75,7 +85,7 @@ function Task(props) {
                         <AiOutlineSetting />
                         <TasksGroupeSettingStyle color="#32d0ff" size="110px" visible={displaySetting}>
                             <li onClick={() => props.toggelSetTaskModal(props.data)}><AiOutlineEdit /> <span>Edit</span></li>
-                            <li><AiOutlineDelete /> <span>Delete</span></li>
+                            <li onClick={()=> deleteTask(props.data.id)}><AiOutlineDelete /> <span>Delete</span></li>
                         </TasksGroupeSettingStyle>
                     </div>
                 </TaskHeader>

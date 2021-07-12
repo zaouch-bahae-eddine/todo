@@ -2,6 +2,8 @@ import { useMutation } from '@apollo/client';
 import React, { Fragment } from 'react'
 import styled from 'styled-components';
 import ADD_TASK from '../../Query/AddTask';
+import SET_TASK from '../../Query/SetTask';
+
 const InputGroup = styled.div`
     display: flex;
     flex-direction: column;
@@ -29,12 +31,20 @@ const ModalButton = styled.button`
 `;
 
 function AddTaskForm(props) {
-    const [addTask, { data }] = useMutation(ADD_TASK);
-    const handleAddTack = (e) => {
+
+    const [applyChange, { data }] = useMutation(props.type === "add" ? ADD_TASK : SET_TASK, {
+        ignoreResults: false,
+        update: () => props.refetch(),
+        onCompleted: (data) => {console.log(data)}
+    });
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (props.formInput.title.replace(/\s/g, '') !== '') {
-            addTask({ variables: { todo: props.formInput } });
-            props.resetFormAddTask();
+            applyChange({ variables: { todo: props.formInput } });
+            props.resetForm();
+            if(props.type === "set"){
+                props.setDisplaySetTaskModal(false);
+            }
         } else {
             alert('we can\'t add todo without titile');
         }
@@ -70,10 +80,9 @@ function AddTaskForm(props) {
                     onChange={(e) => props.handleInputChange(e)}>
                 </textarea>
             </InputGroup>
-
-            <ModalButton onClick={(e) => handleAddTack(e)}>Add</ModalButton>
+            <ModalButton onClick={(e) => handleSubmit(e)}>{props.type === "add" ? "Add" : "Edit"}</ModalButton>
         </Fragment>
     )
 }
 
-export default AddTaskForm
+export default AddTaskForm;

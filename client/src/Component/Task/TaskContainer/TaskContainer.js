@@ -55,7 +55,6 @@ const AddTaskStyle = styled.div`
 function TaskContainer(props) {
     const [displaySetting, setDisplaySetting] = useState(false);
     const toggelSetting = () => {
-        console.log()
         setDisplaySetting((prev) => !prev);
     }
     return (

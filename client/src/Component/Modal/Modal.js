@@ -5,8 +5,9 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 const ModalStyle = styled.div`
     display: ${props => props.visible? "block" : "none"};
     position: fixed;
-    top: 40% ;
-    left: 40%;
+    top: 50% ;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: white;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
