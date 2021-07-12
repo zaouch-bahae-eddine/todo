@@ -8,7 +8,7 @@ const TypeDefs = gql`
 
     type Mutation {
         addTodo(todo: TodoInput!) : Todo
-        setTodoById(id: ID!, todo: TodoInput!): Todo
+        setTodoById(todo: TodoInput!): Todo
         deleteTodoById(id: ID!): Todo
     }
 
@@ -22,6 +22,7 @@ const TypeDefs = gql`
     }
 
     input TodoInput {
+        id: ID
         title: String
         detail: String
         categorie:String

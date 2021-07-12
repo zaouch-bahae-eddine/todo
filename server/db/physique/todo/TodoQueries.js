@@ -19,8 +19,8 @@ const addTodo = async (data) => {
     return result;
 }
 
-const setTodoById = async (id, data) => {
-    const result = await setById(id, data, todoFormat);
+const setTodoById = async (data) => {
+    const result = await setById(data, todoFormat);
     return result;
 }
 

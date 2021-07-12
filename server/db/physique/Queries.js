@@ -28,7 +28,7 @@ const add = async (data, format) => {
     let columns = '';
     let values = '';
     Object.keys(format.fields).forEach(key => {
-        if(data[key] !== undefined){
+        if(data[key] !== undefined && key !== 'id'){
             columns += `\`${format.fields[key]}\`, `;
             values += `'${data[key]}', `;
         }
@@ -40,17 +40,18 @@ const add = async (data, format) => {
     return await findById(rows.insertId, format);
 }
 
-const setById = async (id, data, format) => {
+const setById = async (data, format) => {
     let query = `UPDATE \`${format.table}\` SET `;
     Object.keys(format.fields).forEach(key => {
-        if(data[key] != undefined){
+        if(data[key] != undefined && key !== 'id'){
             query += `\`${format.fields[key]}\` = '${data[key]}', `
         }
     });
     query = query.slice(0, -2);
-    query += ` WHERE \`id\` = ${id};`
+    query += ` WHERE \`id\` = ${data.id};`
+    console.log(query);
     const [rows, allTodoFields]  = await promiseConnection.query(query);
-    return await findById(id, format);
+    return await findById(data.id, format);
 }
 
 const deleteById = async (id, format) => {

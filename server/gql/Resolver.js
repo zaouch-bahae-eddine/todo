@@ -13,7 +13,8 @@ const Resolver = {
             return addTodo(args.todo);
         },
         setTodoById: (obj, args, context, info) => {
-            return setTodoById(args.id, args.todo);
+            console.log(args.todo);
+            return setTodoById(args.todo);
         },
         deleteTodoById: (obj, args, context, info) => {
             return deleteTodoById(args.id);
