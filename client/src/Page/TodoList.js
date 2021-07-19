@@ -40,7 +40,6 @@ function TodoList() {
         } else {
             resetForm();
         }
-
     }
 
     const resetForm = () => {
