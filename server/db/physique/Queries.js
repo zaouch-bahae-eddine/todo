@@ -1,6 +1,6 @@
 const connection = require('../Connexion');
-const promiseConnection = connection.promise();
 const formatDataRows = require('../../db/model/FormatDataRows');
+const promiseConnection = connection.promise();
 
 const findAll = async (format) => {
     try{

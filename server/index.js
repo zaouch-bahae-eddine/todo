@@ -1,10 +1,10 @@
 
 const { ApolloServer } = require('apollo-server');
-const TypeDefs = require('./gql/TypeDefs.js');
+const TypeDef = require('./gql/TypeDefs.js');
 const Resolver = require('./gql/Resolver');
 
 
-const server = new ApolloServer({ typeDefs: TypeDefs, resolvers: Resolver });
+const server = new ApolloServer({ typeDefs: TypeDef, resolvers: Resolver });
 server.listen().then(({ url }) => {
     console.log(`🚀  Server ready at ${url}`);
 })

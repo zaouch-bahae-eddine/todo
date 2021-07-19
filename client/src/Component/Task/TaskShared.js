@@ -4,8 +4,6 @@ const TasksGroupeSettingStyle = styled.ul`
     display: ${props => props.visible? "block" : "none"};
     z-index: 9;
     position: absolute;
-    /* top: 0px;
-    right: 10px; */
     top: -19px;
     right: -5px;
     background-color: #ffffffc9;
